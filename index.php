@@ -13,7 +13,7 @@ $myfile;
 
 parse::commaParse("sample.csv");
 
-read::fileRead($parsedFile);
+//read::fileRead($parsedFile);
 
 class main {
 
@@ -39,15 +39,18 @@ class parse{
 
     static public function commaParse($myfile)
     {
-        $myfile = fopen("sample.csv", "r");
+        $myfile = fopen($myfile, "r");
 
-
-        echo print_r(fgetcsv($myfile),',');
-
-
+        while(!feof($myfile)) {
+            echo print_r($row[] = fgetcsv($myfile,','));
+        }
         fclose($myfile);
-
     }
+}
+
+class store{
+
+    static public function dataStore(){}
 }
 
 //class createHTML {

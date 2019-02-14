@@ -1,1 +1,7 @@
-jack,jill,dog
+#,Name,Title,Salary,Supervisor,Hire Date,Location
+1,Jake Adams,Technician,55000,Robert Morris,01/20/2018,New Jersey
+2,Robert Morris,CEO,110000,NA,01/01/2018,New Jersey
+3,Amy Stevens,Accountant,40000,Robert Morris,01/01/2018,New York
+4,Roshan Patel,Salesman,60000,Robert Morris,02/30/2018,Illinois
+5,Shawn Zhang,Network Administrator,60000,Robert Morris,01/01/2018,Virginia
+
