@@ -12,6 +12,7 @@ $parsedFile;
 $myfile;
 
 parse::commaParse("sample.csv");
+createHTML::table();
 
 //read::fileRead($parsedFile);
 
@@ -41,10 +42,17 @@ class parse{
     {
         $myfile = fopen($myfile, "r");
 
-        while(!feof($myfile)) {
-            echo print_r($row[] = fgetcsv($myfile,','));
+       // while(!feof($myfile)) {
+       //   echo print_r($row[] = fgetcsv($myfile,','));
+       // }
+       // fclose($myfile);
+       // return $row;
+
+        $file = fopen($myfile, 'r');
+        while (($row = fgetcsv($myfile)) !== FALSE) {
+            print_r($row);
         }
-        fclose($myfile);
+        fclose($file);
     }
 }
 
@@ -53,13 +61,38 @@ class store{
     static public function dataStore(){}
 }
 
-//class createHTML {
+class createHTML
+{
+    static public function table(){
 
-//   static public function openHTML(
+        $i = 0;
 
-//    )
-//}
+        echo '<table border="1">';
+        while($i < 70){
+            if($i%7==0){
+                echo "<tr>".PHP_EOL;
+            }
+            echo "<td>".$i."</td>", PHP_EOL;
+            $i++;
+            if($i%7==0){
+                echo "</tr>".PHP_EOL;
+            }
+        }
+    }
 
-
+}
 
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Demo
+    </title>
+</head>
+<body>
+
+</body>
+</html>
+
