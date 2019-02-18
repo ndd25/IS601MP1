@@ -1,5 +1,3 @@
-
-
 <?php
 /**
  * Created by PhpStorm.
@@ -8,91 +6,67 @@
  * Time: 6:56 PM
  */
 
-$parsedFile;
-$myfile;
-
-parse::commaParse("sample.csv");
-createHTML::table();
-
-//read::fileRead($parsedFile);
+main::start("sample.csv");
 
 class main {
 
-}
+    static public function start($filename){
 
-class read{
-
-    static public function fileRead($myfile)
-    {
-        $myfile = fopen("sample.csv", "r");
-
-        ob_start();
-        echo fread($myfile, filesize("sample.csv"));
-        $parsedFile = ob_get_contents();
-        ob_end_clean();
-
-        fclose($myfile);
-        return $parsedFile;
+        parse::commaParse($filename);
+        createHTML::table();
     }
 }
+
 
 class parse{
-
     static public function commaParse($myfile)
     {
-        $myfile = fopen($myfile, "r");
+        $file = $myfile;
+        $content = file($file);
 
-       // while(!feof($myfile)) {
-       //   echo print_r($row[] = fgetcsv($myfile,','));
-       // }
-       // fclose($myfile);
-       // return $row;
+        $array = array();
 
-        $file = fopen($myfile, 'r');
-        while (($row = fgetcsv($myfile)) !== FALSE) {
-            print_r($row);
+        for($i = 0; $i < count($content); $i++) {
+            $line = explode(',', $content[$i]);
+            for ($j = 0; $j < count($line); $j++) {
+                $array[$i][$j + 1] = $line[$j];
+            }
         }
-        fclose($file);
+
+        return $array;
     }
 }
-
 class store{
-
     static public function dataStore(){}
 }
-
 class createHTML
 {
     static public function table(){
 
-        $i = 0;
+        //$array = array(array("#","Name","Title","Salary","Supervisor","Hire Date","Location"),
+        //                array("1","Jake Adams","Technician","55000","Robert Morris","01/20/2018","New Jersey"));
 
-        echo '<table border="1">';
-        while($i < 70){
-            if($i%7==0){
-                echo "<tr>".PHP_EOL;
+        echo "<html>";
+        echo "<body>";
+        echo "<table border='1'>";
+
+        $array = parse::commaParse("sample.csv");
+
+        print_r($array);
+
+
+        for($i = 0; $i < 7; $i++){
+            echo "<tr>".PHP_EOL;
+            for($j = 0; $j < 7; $j++){
+                echo "<td>".$array[$i][$j]."</td>", PHP_EOL;
             }
-            echo "<td>".$i."</td>", PHP_EOL;
-            $i++;
-            if($i%7==0){
-                echo "</tr>".PHP_EOL;
-            }
+            echo "</tr>".PHP_EOL;
+
         }
+        echo "</table>";
+
+        echo "</body>";
+        echo "</html>";
     }
-
 }
-
 ?>
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>
-        Demo
-    </title>
-</head>
-<body>
-
-</body>
-</html>
-
