@@ -8,65 +8,51 @@
 
 main::start("sample.csv");
 
+
 class main {
 
-    static public function start($filename){
-
-        parse::commaParse($filename);
+    static public function start($filename)
+    {
         createHTML::table();
     }
 }
 
 
-class parse{
-    static public function commaParse($myfile)
+class parse {
+
+    static public function recordParse($filename)
     {
-        $file = $myfile;
-        $content = file($file);
+        $file = fopen($filename,"r");
 
-        $array = array();
 
-        for($i = 0; $i < count($content); $i++) {
-            $line = explode(',', $content[$i]);
-            for ($j = 0; $j < count($line); $j++) {
-                $array[$i][$j + 1] = $line[$j];
-            }
+        while(($row = fgetcsv($file, ',')) !== false){
+            $rows[] = $row;
         }
 
-        return $array;
+        fclose($file);
+        return $rows;
     }
 }
-class store{
-    static public function dataStore(){}
-}
+
 class createHTML
 {
     static public function table(){
 
-        //$array = array(array("#","Name","Title","Salary","Supervisor","Hire Date","Location"),
-        //                array("1","Jake Adams","Technician","55000","Robert Morris","01/20/2018","New Jersey"));
-
-        echo "<html>";
-        echo "<body>";
+        echo "<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css\">";
         echo "<table border='1'>";
+        echo "<table class=\"table table-dark table-striped\">";
 
-        $array = parse::commaParse("sample.csv");
+        $array = parse::recordParse("sample.csv");
 
-        print_r($array);
-
-
-        for($i = 0; $i < 7; $i++){
+        for($i = 0; $i < 4; $i++){
             echo "<tr>".PHP_EOL;
-            for($j = 0; $j < 7; $j++){
+            for($j = 0; $j < 4; $j++){
                 echo "<td>".$array[$i][$j]."</td>", PHP_EOL;
             }
             echo "</tr>".PHP_EOL;
-
         }
-        echo "</table>";
 
-        echo "</body>";
-        echo "</html>";
     }
+
 }
 ?>
